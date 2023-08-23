@@ -18,8 +18,6 @@ function App() {
       title,
     });
 
-    console.log(response);
-
     const updatedBooks = [...books, response.data];
     setBooks(updatedBooks);
   };
@@ -30,11 +28,16 @@ function App() {
     setBooks(updatedBooks);
   };
 
-  const handleEditBookById = (id, newTitle) => {
+  const handleEditBookById = async (id, newTitle) => {
+    const response = await axios.put(`http://localhost:3001/books/${id}`, {
+      title: newTitle,
+    });
+
     const updatedBooks = books.map((book) => {
       if (book.id === id) {
-        return { ...book, title: newTitle };
+        return { ...book, ...response.data };
       }
+
       return book;
     });
     setBooks(updatedBooks);
