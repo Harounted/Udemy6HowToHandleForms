@@ -1,19 +1,23 @@
-import { useEffect, useContext } from "react";
-import BookCreate from "./components/BookCreate";
-import BookList from "./components/BookList";
-import BooksContext from "./context/books";
+import { useState, useEffect } from "react";
 
 function App() {
-  const { fetchBooks } = useContext(BooksContext);
+  const [counter, setCounter] = useState(0);
+
   useEffect(() => {
-    fetchBooks();
-  }, []);
+    document.body.onclick = () => {
+      console.log(counter);
+    };
+  }, [counter]);
 
   return (
-    <div className="app">
-      <h1>Reading List</h1>
-      <BookList />
-      <BookCreate />
+    <div>
+      <button className="button" onClick={() => setCounter(counter + 1)}>
+        Click To Increase +
+      </button>
+      <button className="button" onClick={() => setCounter(counter - 1)}>
+        Click To Decrease -
+      </button>
+      <div>Count: {counter}</div>
     </div>
   );
 }
